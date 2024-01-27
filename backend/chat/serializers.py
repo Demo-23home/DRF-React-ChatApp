@@ -18,7 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 
-class ChatMessageSerializer(serializers.ModelSerializer):
+class MessageSerializer(serializers.ModelSerializer):
     reciver_profile = ProfileSerializer(read_only=True)
     sender_profile = ProfileSerializer(read_only=True)
 

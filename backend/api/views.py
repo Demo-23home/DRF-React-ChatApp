@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from .models import Profile, User
-from .serializers import UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer
+from .serializers import MyTokenObtainPairSerializer, RegisterSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from chat.serializers import ProfileSerializer
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -50,4 +51,10 @@ def getRoutes(request):
     ]
     return Response(routes)
 
+
+
+class ProfileDetail(generics.RetrieveAPIView):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    permission_classes = [IsAuthenticated]
 
