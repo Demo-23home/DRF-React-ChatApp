@@ -1,0 +1,3 @@
+[submodule "DRF-React-JWT_Authentication-System"]
+	path = DRF-React-JWT_Authentication-System
+	url = https://github.com/Demo-23home/DRF-React-JWT_Authentication-System.git
