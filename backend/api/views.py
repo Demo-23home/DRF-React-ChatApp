@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from chat.serializers import ProfileSerializer
-
+from django.db.models import Q
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -58,3 +58,24 @@ class ProfileDetail(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     permission_classes = [IsAuthenticated]
 
+
+
+
+class SerachUser(generics.ListAPIView):
+    serializer_class = ProfileSerializer
+    # permission_classes = [IsAuthenticated]
+    queryset = Profile.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        username = self.kwargs['username']
+        logged_in_user = self.request.user
+        users = Profile.objects.filter(
+            Q(user__username__icontains=username)|
+            Q(full_name__icontains=username)|
+            Q(user__email__icontains=username)         )
+
+        if not users.exists():
+            return Response({"details":"User donsn't exist!"}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = self.get_serializer(users, many=True)
+        return Response({"data":serializer.data})

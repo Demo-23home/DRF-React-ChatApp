@@ -8,6 +8,7 @@ import LoginPage from './views/LoginPage'
 import HomePage from './views/HomePage'
 import DashBoard from './views/DashBoard'
 import NavBar from './views/NavBar'
+import Message from './views/Message'
 
 
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route component={LoginPage} path="/login" />
           <Route component={RegisterPage} path="/register" exact />
           <Route component={HomePage} path="/" exact />
+          <Route component={Message} path="/inbox"/>
         </Switch>
       </AuthProvider>
     </Router>

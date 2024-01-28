@@ -8,5 +8,6 @@ urlpatterns = [
     path("register/",RegisterView.as_view()),
     path("dashboard/",dahsBoard),
     path("profile/<int:pk>/",ProfileDetail.as_view()),
+    path("search/<username>/",SerachUser.as_view()),
     path('',getRoutes),
 ]
