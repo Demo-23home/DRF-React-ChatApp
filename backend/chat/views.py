@@ -3,6 +3,8 @@ from rest_framework import generics
 from django.db.models import Subquery, OuterRef, Q
 from api.models import User
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 # Create your views here.
@@ -41,17 +43,29 @@ class GetMessages(generics.ListAPIView):
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
 
-    
     def get_queryset(self):
-        sender_id = self.kwargs['sender_id']
-        reciever_id = self.kwargs['reciever_id']
-        messages =  ChatMessage.objects.filter(sender__in=[sender_id, reciever_id], reciever__in=[sender_id, reciever_id])
+        sender_id = self.kwargs["sender_id"]
+        reciever_id = self.kwargs["reciever_id"]
+        messages = ChatMessage.objects.filter(
+            sender__in=[sender_id, reciever_id], reciever__in=[sender_id, reciever_id]
+        )
         return messages
+
 
 class SendMessages(generics.CreateAPIView):
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
 
 
-
- 
+@api_view(["GET"])
+def getRoutes(request):
+    pathes = [
+        """
+    my-messages/<user_id>/"
+    
+    get-messages/<sender_id>/<reciever_id>/",
+    
+    send-messages/", SendMessages
+    """
+    ]
+    return Response(pathes)
