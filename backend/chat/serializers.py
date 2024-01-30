@@ -19,10 +19,10 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    reciver_profile = ProfileSerializer(read_only=True)
+    reciever_profile = ProfileSerializer(read_only=True)
     sender_profile = ProfileSerializer(read_only=True)
 
     
     class Meta:
         model = ChatMessage
-        fields = ['id', 'user', 'sender', 'sender_profile','reciever', 'reciver_profile', 'message', 'is_read', 'date']
+        fields = ['id', 'user', 'sender', 'sender_profile','reciever', 'reciever_profile', 'message', 'is_read', 'date']
