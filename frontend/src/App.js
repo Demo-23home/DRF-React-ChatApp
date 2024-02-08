@@ -9,7 +9,7 @@ import HomePage from './views/HomePage'
 import DashBoard from './views/DashBoard'
 import NavBar from './views/NavBar'
 import Message from './views/Message'
-
+import MessageDetail from './views/MessageDetail'
 
 
 
@@ -23,7 +23,8 @@ const App = () => {
           <Route component={LoginPage} path="/login" />
           <Route component={RegisterPage} path="/register" exact />
           <Route component={HomePage} path="/" exact />
-          <Route component={Message} path="/inbox"/>
+          <Route component={Message} path="/inbox" exact / >
+          <Route component={MessageDetail} path="/inbox/:id" exact />
         </Switch>
       </AuthProvider>
     </Router>

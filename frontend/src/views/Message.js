@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import useAxios from "../utils/useAxios";
 import moment from 'moment'
+import { Link } from "react-router-dom";
 
 const Message = () => {
   const baseURL = "http://localhost:8000/messages";
@@ -13,7 +14,7 @@ const Message = () => {
   const axios = useAxios();
 
   const token = localStorage.getItem("authTokens");
-  const decoded = jwtDecode(token);
+  const decoded = jwtDecode(token); 
   const user_id = decoded.user_id;
 
   useEffect(() => {
@@ -47,8 +48,8 @@ const Message = () => {
                   </div>
                 </div>
                 {messages.map((message) => (
-                  <a
-                    href="#"
+                  <Link
+                    to={'/inbox/' + message.sender}
                     className="list-group-item list-group-item-action border-0"
                   >
                     <div className="badge bg-success float-right text-white">
@@ -57,7 +58,7 @@ const Message = () => {
                     <div className="d-flex align-items-start">
                       {message.sender.id !== user_id && (
                         <img
-                          src={message.reciever_profile.image}
+                          src={message.sender_profile.image}
                           className="rounded-circle mr-1"
                           alt="2"
                           width={40}
@@ -66,7 +67,7 @@ const Message = () => {
                       )}
                       {message.sender.id === user_id && (
                         <img
-                          src={message.sender_profile.image}
+                          src={message.reciever_profile .image}
                           className="rounded-circle mr-1"
                           alt="1"
                           width={40}
@@ -81,7 +82,7 @@ const Message = () => {
                         <div className="small">{message.message}</div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 ))}
                 <hr className="d-block d-lg-none mt-1 mb-0" />
               </div>
